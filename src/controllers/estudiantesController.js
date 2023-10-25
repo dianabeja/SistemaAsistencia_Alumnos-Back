@@ -23,25 +23,17 @@ const getOneStudent=async(req,res)=>{
 const createStudent=async(req,res)=>{
     const {body}=req
     if (
-      !body.id||
-	    !body.nombres||
-	    !body.apellidos||
+	    !body.nombre||
 	    !body.matricula||
-	    !body.telefono||
 	    !body.sexo||
-	    !body.fechanacimiento||
 	    !body.licenciatura
         ){
         return;
     }
     const newStudent={
-        id:body.id,
-        nombres:body.nombres,
-        apellidos:body.apellidos,
+        nombre:body.nombre,
         matricula:body.matricula,
-        telefono:body.telefono,
         sexo:body.sexo,
-        fechanacimiento:body.fechanacimiento,
         licenciatura:body.licenciatura,
     }
     const createdStudent= await estudiantesService.createStudent(newStudent);
@@ -149,22 +141,26 @@ const alumnoMaterias = async (req, res) => {
   };
 
   const createCuenta=async(req,res)=>{
+    console.log('Pasa por estudiantes Controller 1');
+
     const {body}=req
     if (
         !body.matricula||
         !body.correo||
-        !body.contrasena||
+        !body.contraseña||
         !body.url_imagen
         ){
         return;
     }
+
     const newCuenta={
       matricula: body.matricula,
       correo: body.correo,
-      contrasena: body.contrasena,
+      contraseña: body.contraseña,
       url_imagen: body.url_imagen
     }
     const createdStudent= await estudiantesService.createCuenta(newCuenta);
+
     res.status(201).send({status:'OK',data:createdStudent});
 };
   
