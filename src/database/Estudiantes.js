@@ -72,8 +72,13 @@ const deleteStudent = async (id) => {
 
 const verificarCuenta=async(cuenta)=>{
   try {
+    console.log(cuenta)
     const {correo,contraseña}=cuenta;
+    console.log('correo'+correo)
+    console.log('contraseña'+contraseña)
+
     const res=await pool.query("SELECT matricula FROM cuenta_alumnos WHERE correo = $1 AND contraseña = $2 ",[correo,contraseña]);
+    console.log('Verificar cuenta', JSON.stringify(res));
     return res.rows;
   } catch (error) {
     throw error;
