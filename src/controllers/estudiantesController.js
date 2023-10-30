@@ -76,7 +76,7 @@ const IniciarSesion = async (req, res) => {
 
         if (result.length === 1) {
             const { matricula } = result[0];
-            console.log("matriculaaa Inicio de sesion"+result[0])
+            console.log("matriculaaa Inicio de sesion",result[0])
             const token = jwt.sign(
                 { matricula: matricula },
                 process.env.JWT_SECRET
