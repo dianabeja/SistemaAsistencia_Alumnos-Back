@@ -127,9 +127,8 @@ const alumnoMaterias = async (req, res) => {
     const newToken = token.split('Bearer ')
     const token1 = newToken[1];
     const decodedToken = jwt.verify(token1, 'Centenito');
-    console.log(decodedToken)
-    const Valor = decodedToken;
-
+    const { Valor } = decodedToken;
+    console.log(Valor)
     let NRCs = Valor;
     if (!Array.isArray(NRCs)) {
       NRCs = [NRCs];
