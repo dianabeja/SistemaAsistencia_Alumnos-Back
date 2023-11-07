@@ -88,7 +88,7 @@ const verificarCuenta=async(cuenta)=>{
 const materias=async(id)=>{
   try {
     //const {correo,contraseña}=cuenta;
-    const res=await pool.query("select nrc_materias from alumno_materias where matricula_alumno=$1; ",[id]);
+    const res=await pool.query("select * from alumno_materias where matricula_alumno=$1; ",[id]);
     return res.rows;
   } catch (error) {
     throw error;

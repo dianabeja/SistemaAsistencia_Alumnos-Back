@@ -106,11 +106,14 @@ const materiasAlumno=async(req,res)=>{
 const alumnoMaterias = async (req, res) => {
     try {
       const token = req.headers.authorization;
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+      const newToken = token.split('Bearer ')
+      const token1 = newToken[1];      
+      const decodedToken = jwt.verify(token1, process.env.JWT_SECRET);
       const { matricula } = decodedToken;
   
       const result = await estudiantesService.materias(matricula);
-      const nrcs = result.map((row) => row.nrc);
+      const nrcs = result.map((row) => row.ncr_materias);
   
       res.json({ nrcs });
     } catch (error) {
@@ -120,8 +123,13 @@ const alumnoMaterias = async (req, res) => {
   
   const encontrarMateriaAlumno = async (req, res) => {
     const token = req.headers.authorization;
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    const { Valor } = decodedToken;
+
+    const newToken = token.split('Bearer ')
+    const token1 = newToken[1];
+    const decodedToken = jwt.verify(token1, 'Centenito');
+    console.log(decodedToken)
+    const Valor = decodedToken;
+
     let NRCs = Valor;
     if (!Array.isArray(NRCs)) {
       NRCs = [NRCs];
@@ -131,6 +139,8 @@ const alumnoMaterias = async (req, res) => {
       const result = await Promise.all(
         NRCs.map((NRC) => estudiantesService.obtenerMaterias(NRC))
       );
+
+      console.log(result)
   
       const responseData = result.map((resp) => resp[0]);
   
