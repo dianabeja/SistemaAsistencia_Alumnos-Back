@@ -13,7 +13,7 @@ const getOneStudent = async (req, res) => {
     console.log(token);
     const newToken = token.split("Bearer ");
     const token1 = newToken[1];
-    const decodedToken = jwt.verify(token1, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token1, 'Centenito');
     console.log(decodedToken);
     const studentId = decodedToken.matricula;
     const student = await estudiantesService.getOneStudent(studentId);
@@ -54,7 +54,7 @@ const deleteStudent = (req, res) => {
 const generarToken = async (req, res) => {
   try {
     const valor = req.body;
-    const token = jwt.sign({ Valor: valor }, process.env.JWT_SECRET);
+    const token = jwt.sign({ Valor: valor }, 'Centenito');
     res.json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -77,7 +77,7 @@ const IniciarSesion = async (req, res) => {
     if (result.length === 1) {
       const { matricula } = result[0];
       console.log("matriculaaa Inicio de sesion", result[0]);
-      const token = jwt.sign({ matricula: matricula }, process.env.JWT_SECRET);
+      const token = jwt.sign({ matricula: matricula }, 'Centenito');
       res.json({ token });
     } else {
       res.status(401).json({ message: "Credenciales inválidas" });
@@ -91,7 +91,7 @@ const IniciarSesion = async (req, res) => {
 const materiasAlumno = async (req, res) => {
   try {
     const token = req.headers.authorization;
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, 'Centenito');
     const studentMat = decodedToken.matricula;
     const materias = await estudiantesService.obtenerMaterias(studentMat);
     res.send({ status: "OK", data: materias });
@@ -108,7 +108,7 @@ const alumnoMaterias = async (req, res) => {
 
     const newToken = token.split("Bearer ");
     const token1 = newToken[1];
-    const decodedToken = jwt.verify(token1, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token1, 'Centenito');
     const { matricula } = decodedToken;
 
     const result = await estudiantesService.materias(matricula);
